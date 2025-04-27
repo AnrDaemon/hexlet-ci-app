@@ -1,0 +1,21 @@
+# file: .github/workflows/show-directory.yml
+name: run-tests
+# on – определяет события, которые запускают воркфлоу
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout the repository"
+        uses: actions/checkout@v4
+      - name: "Setup node.js"
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: 'npm'
+      - name: "Setup the application"
+        run: make install
+      - name: "Validate source code"
+        run: make lint
+      - name: "Run tests"
+        run: make test
